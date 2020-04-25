@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>covid-19 </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/icon.png">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="css/jqvmap.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
+    
+    <style>
+        .info{
+    position: absolute;
+    z-index: 1;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      background: #292929;
+      color: white;
+      font-family: sans-serif, Verdana;
+      font-size: smaller;
+      padding: 3px;
+    pointer-events:none;
+  }
+      </style>
+</head>
+
+<body>
+
+
+
+        <div class="header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <a class="navbar-brand"  href="#">
+                                <span>Covid-19</span></a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarText">
+                                <ul class="navbar-nav mr-auto">
+                                  <li class="nav-item active">
+                                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="index2.html">Top Countries</a>
+                                  </li>
+                                  <li class="nav-item ">
+                                    <a class="nav-link" href="index3.html">All Countries</a>
+                                  </li>
+                                </ul>
+                              </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-body  pt-5">
+            
+            <div class="container-fluid">
+                
+                <div class="row" id="test">
+                    <div class="info"></div>
+                    <div id="vmap" style="position: relative;" class="col-12"></div>
+                    <div class="col-12">
+                        <div class="my-3 update-time">
+                            <span class=" mr-2">Last Update: </span>
+                            <strong id="stat-taken" class="text-primary"></strong>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="world-statistics">
+                            <div class="row align-items-center">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col">
+                                    <div class="world-widget">
+                                        <div class="icon gradient-1">
+                                            <i class="fas fa-users"></i>
+                                        </div>
+                                        <div>
+                                            <h5>Total Cases</h5>
+                                            <h2 id="total_cases"></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col">
+                                    <div class="world-widget">
+                                        <div class="icon gradient-9">
+                                            <i class="fas fa-procedures"></i>
+                                        </div>
+                                        <div>
+                                            <h5>Total Death</h5>
+                                            <h2 id="total_deaths"></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col">
+                                    <div class="world-widget">
+                                        <div class="icon gradient-4">
+                                            <i class="fas fa-child"></i>
+                                        </div>
+                                        <div>
+                                            <h5>Total Recovered</h5>
+                                            <h2 id="total_recovered"></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col">
+                                    <div class="world-widget">
+                                        <div class="icon gradient-3">
+                                            <i class="fas fa-medkit"></i>
+                                        </div>
+                                        <div>
+                                            <h5>Active</h5>
+                                            <h2 id="total_active"></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col">
+                                    <div class="world-widget">
+                                        <div class="icon gradient-3">
+                                            <i class="fas fa-bell"></i>
+                                        </div>
+                                        <div>
+                                            <h5>New Cases</h5>
+                                            <h2 id="new_cases"></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col">
+                                    <div class="world-widget">
+                                        <div class="icon gradient-12">
+                                            <i class="fas fa-bed"></i>
+                                        </div>
+                                        <div>
+                                            <h5>New Death</h5>
+                                            <h2 id="new_deaths"></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="container">
+                <div class="row align-items-center">
+                    
+                        <div class="col copy_right text-center">
+                            Copyright © 2020 All Rights Reserved.
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+
+
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="js/jquery.vmap.js"></script>
+        <script type="text/javascript" src="js/jquery.vmap.world.js" charset="utf-8"></script>
+        <script type="text/javascript" src="js/jquery.vmap.sampledata.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+    
+        <script>
+    
+            var data = null;
+            var card = [];
+           
+    var xhr = new XMLHttpRequest();
+    var req = new XMLHttpRequest();
+
+    req.open("GET", "https://corona.lmao.ninja/v2/all");
+    req.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+            var all = JSON.parse(req.responseText);
+            console.log(all);
+            var d = new Date(all.updated);
+            
+            document.querySelector('#stat-taken').innerHTML = d.toLocaleString();
+            document.querySelector('#total_cases').innerHTML = all.cases;
+            document.querySelector('#total_deaths').innerHTML = all.deaths;
+            document.querySelector('#total_recovered').innerHTML = all.recovered;
+            document.querySelector('#total_active').innerHTML = all.active;
+            document.querySelector('#new_cases').innerHTML = all.todayCases;
+            document.querySelector('#new_deaths').innerHTML = all.todayDeaths;
+        }
+    });
+    
+    req.send();
+
+
+    xhr.open("GET", "https://corona.lmao.ninja/v2/countries");
+    
+    
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+            var list = JSON.parse(this.responseText);
+    
+            list.sort(function(a, b) {
+                return b.cases - a.cases;
+            });
+            
+            console.log(list);
+            for (const i in list) {
+               
+                card[list[i].countryInfo.iso2] = {'country':list[i].country,'flag':list[i].countryInfo.flag,'cases':list[i].cases,'deaths':list[i].deaths,'recovered':list[i].recovered,'active':list[i].active};
+                  
+            
+            }
+            
+            
+        }
+    });
+    
+    xhr.send(data);
+        
+    
+        
+            jQuery(document).ready(function () {
+              jQuery('#vmap').vectorMap({
+                map: 'world_en',
+                backgroundColor: '#333333',
+                color: '#ffffff',
+                hoverOpacity: 0.7,
+                selectedColor: '#666666',
+                enableZoom: true,
+                showTooltip: false,
+                scaleColors: ['#C8EEFF', '#006491'],
+                values: sample_data,
+                normalizeFunction: 'polynomial',
+                onRegionOver: function(event, code, region){
+                  $('.info').css('display','block');
+                 
+                    $(this).mousemove(function (e) {
+    
+                  $('.info').html(card[code.toUpperCase()].country+
+                  ' <img src="'+card[code.toUpperCase()].flag+'" width="30">'+
+                  '<br>Cases:'+card[code.toUpperCase()].cases+
+                  '<br>Deaths:'+card[code.toUpperCase()].deaths+
+                  '<br>Recovered:'+card[code.toUpperCase()].recovered+
+                  '<br>Active:'+card[code.toUpperCase()].active);
+                  $('.info').css({
+                 left: e.clientX - 30,
+                 top: e.pageY +50});
+                    });
+                    
+                },
+                onRegionOut: function(event, code, region){
+                  $('.info').css('display','none');
+                }
+              });
+            });
+          </script>
+
+
+
+
+
+    
+</body>
+
+</html>
