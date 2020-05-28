@@ -11,7 +11,7 @@
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
-    
+    <link rel="stylesheet" href="css/loader.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="js/utils.js"></script>
@@ -24,13 +24,19 @@
             -ms-user-select: none;
         }
         </style>
+
+
+
 </head>
 
 <body>
-
-
-
+    <div id="charge">
+		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+	</div>
+    
+    
         <div class="header">
+            
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xl-12">
@@ -212,6 +218,7 @@
                     </div>
             
                     <div style="width:100%;">
+
                         <canvas id="canvas"></canvas>
                     </div>
 
@@ -228,7 +235,53 @@
         var card = '';
         var table = [];
         var f = document.querySelector('#find_country');
+
+                var config = {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: []
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: '30 Days Statistic'
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        
+                        x: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Days'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Value',
+                                
+                            }
+                        }
+                    }
+                }
+            };
         
+        window.onload = function() {
+		    var ctx = document.getElementById('canvas').getContext('2d');
+		    window.myLine = new Chart(ctx, config);
+        };
+
 var xhr = new XMLHttpRequest();
 
 xhr.open("GET", "https://corona.lmao.ninja/v2/countries");
@@ -280,6 +333,9 @@ for (const i in list) {
         
     }
     
+
+        // document.querySelector('.header').style.position = 'fixed';
+        document.querySelector('#charge').style.display = 'none';
 	}
 
     f.addEventListener('input',function () {
@@ -400,10 +456,11 @@ function chartCountry(iso) {
     var cases = [];
     var deaths = [];
     var recovered = [];
-    var config;
     var all;
-    var ts = new Date('4/21/20');
-    
+
+    config.data.datasets.splice(0, 3);
+    window.myLine.update();
+
         req.open("GET", "https://corona.lmao.ninja/v2/historical/"+iso.toLowerCase()+"?lastdays=30");
         req.addEventListener("readystatechange", function () {
             if (this.readyState === this.DONE) {
@@ -415,70 +472,36 @@ function chartCountry(iso) {
                     deaths.push(all.timeline.deaths[i]);
                     recovered.push(all.timeline.recovered[i]);
                 }
-            }
+            
 
+            config.data.labels = d;
 
-            var ctx = document.getElementById('canvas').getContext('2d');
-                window.myLine = new Chart(ctx, config);
-                config = {
-                type: 'line',
-                data: {
-                    labels: d,
-                    datasets: [{
-                        label: 'Confirmed',
+            config.options.title.text = all.country+' 30 Days Statistic';
+
+            var ds1 = [{
+			            label: 'Confirmed',
                         backgroundColor: window.chartColors.blue,
                         borderColor: window.chartColors.blue,
                         data: cases,
                         fill: false,
-                    },{
-                        label: 'deaths',
+            },{
+			            label: 'deaths',
                         backgroundColor: window.chartColors.red,
                         borderColor: window.chartColors.red,
                         data: deaths,
                         fill: false,
-                    },{
-                        label: 'recovered',
+            },{
+			            label: 'recovered',
                         backgroundColor: window.chartColors.green,
                         borderColor: window.chartColors.green,
                         data: recovered,
                         fill: false,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    title: {
-                        display: true,
-                        text: '30 Days Statistic'
-                    },
-                    tooltips: {
-                        mode: 'index',
-                        intersect: false,
-                    },
-                    hover: {
-                        mode: 'nearest',
-                        intersect: true
-                    },
-                    scales: {
-                        
-                        x: {
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Days'
-                            }
-                        },
-                        y: {
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Value',
-                                
-                            }
-                        }
-                    }
-                }
-            };
+            }];
+
+            config.data.datasets = ds1;
             
+		    window.myLine.update();
+        }
         });
         
         req.send();

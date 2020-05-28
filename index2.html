@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <link href="css/jqvmap.css" media="screen" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
-    
+    <link rel="stylesheet" href="css/loader.css">
     <style>
         .info{
     position: absolute;
@@ -32,7 +32,9 @@
 
 <body>
 
-
+    <div id="charge">
+		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+	</div>
 
         <div class="header">
             <div class="container-fluid">
@@ -223,6 +225,9 @@
                 
             }
             document.querySelector('#country_recovered').innerHTML = card;
+
+            document.querySelector('.header').style.position = 'fixed';
+            document.querySelector('#charge').style.display = 'none';
         }
     });
     
